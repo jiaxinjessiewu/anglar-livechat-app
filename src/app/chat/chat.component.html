@@ -1,0 +1,295 @@
+<h1 class="chat-room">Real Time Chat Room</h1>
+
+<div *ngIf="!varify">
+  <!-- <textarea
+    [(ngModel)]="name"
+    name="name"
+    placeholder="Enter your name.."
+  ></textarea>
+  <textarea
+    [(ngModel)]="email"
+    name="email"
+    placeholder="Enter your email.."
+  ></textarea>
+  <textarea
+    [(ngModel)]="password"
+    name="password"
+    placeholder="Enter your password.."
+  ></textarea> -->
+  <!-- <input
+    *ngIf="varify_name"
+    type="text"
+    [(ngModel)]="name"
+    name="name"
+    placeholder="Enter your name.."
+  /> -->
+  <!-- <input type="submit" value="Sign Up" (click)="signup()" />
+  <input type="submit" value="Login" (click)="login()" /> -->
+
+  <!-- <div class="modal fade left" id="frameModalTop">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body mx-3">
+          <div class="md-form mb-5">
+            <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
+            <input
+              type="email"
+              id="defaultForm-email"
+              [formControl]="loginFormModalEmail"
+              class="form-control"
+              placeholder="Enter your email.."
+            />
+            <label for="defaultForm-email">Your email</label>
+            <div
+              *ngIf="
+                loginFormModalEmail.invalid &&
+                (loginFormModalEmail.dirty || loginFormModalEmail.touched)
+              "
+            >
+              Input invalid
+            </div>
+            <div
+              *ngIf="
+                loginFormModalEmail.valid &&
+                (loginFormModalEmail.dirty || loginFormModalEmail.touched)
+              "
+            >
+              Input valid
+            </div>
+          </div>
+
+          <div class="md-form mb-4">
+            <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+            <input
+              type="password"
+              id="defaultForm-pass"
+              [formControl]="loginFormModalPassword"
+              class="form-control"
+              placeholder="Enter your password.."
+            />
+            <label for="defaultForm-pass">Your password</label>
+            <mdb-error
+              *ngIf="
+                loginFormModalPassword.invalid &&
+                (loginFormModalPassword.dirty || loginFormModalPassword.touched)
+              "
+            >
+              Input invalid
+            </mdb-error>
+            <mdb-success
+              *ngIf="
+                loginFormModalPassword.valid &&
+                (loginFormModalPassword.dirty || loginFormModalPassword.touched)
+              "
+            >
+              Input valid
+            </mdb-success>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button mdbBtn color="default" class="waves-light" (click)="login()">
+            Login
+          </button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="form">
+    <ul class="tab-group">
+      <li class="tab active" id="signup">
+        <a href="#" (click)="signup_modal('signup')">Sign Up</a>
+      </li>
+      <li class="tab " id="login">
+        <a href="#" (click)="signup_modal('login')">Log In</a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="signup" [style.display]="signup_form ? 'block' : 'none'">
+        <h1>Sign Up To Join In Chat Room</h1>
+
+        <div class="form">
+          <div class="top-row">
+            <div class="field-wrap">
+              <label> User Name <span class="req">*</span> </label>
+              <input
+                type="text"
+                required
+                autocomplete="off"
+                [(ngModel)]="name"
+                name="name"
+              />
+            </div>
+          </div>
+          <div class="field-wrap">
+            <label> Email Address<span class="req">*</span> </label>
+            <input
+              type="email"
+              required
+              autocomplete="off"
+              [formControl]="signupFormModalEmail"
+            />
+            <div
+              class="error"
+              *ngIf="
+                signupFormModalEmail.invalid &&
+                (signupFormModalEmail.dirty || signupFormModalEmail.touched)
+              "
+            >
+              Input invalid
+            </div>
+            <div
+              class="success"
+              *ngIf="
+                signupFormModalEmail.valid &&
+                (signupFormModalEmail.dirty || signupFormModalEmail.touched)
+              "
+            >
+              Input valid
+            </div>
+          </div>
+
+          <div class="field-wrap">
+            <label> Set A Password<span class="req">*</span> </label>
+            <input
+              type="password"
+              required
+              autocomplete="off"
+              [formControl]="signupFormModalPassword"
+            />
+            <div
+              class="error"
+              *ngIf="
+                signupFormModalPassword.invalid &&
+                (signupFormModalPassword.dirty ||
+                  signupFormModalPassword.touched)
+              "
+            >
+              Invalid Input
+            </div>
+            <div
+              class="success"
+              *ngIf="
+                signupFormModalPassword.valid &&
+                (signupFormModalPassword.dirty ||
+                  signupFormModalPassword.touched)
+              "
+            >
+              Valid Input
+            </div>
+          </div>
+
+          <button type="submit" class="button button-block" (click)="signup()">
+            Get Started
+          </button>
+          <div class="error-message" *ngIf="login_error_msg.length > 0">
+            <span> {{ login_error_msg }} </span>
+          </div>
+        </div>
+      </div>
+
+      <div id="login" [style.display]="login_form ? 'block' : 'none'">
+        <h1>Welcome Back!</h1>
+
+        <div class="form">
+          <div class="field-wrap">
+            <label> Email Address<span class="req">*</span> </label>
+            <input
+              type="email"
+              required
+              autocomplete="off"
+              [formControl]="loginFormModalEmail"
+            />
+            <div
+              class="error"
+              *ngIf="
+                loginFormModalEmail.invalid &&
+                (loginFormModalEmail.dirty || loginFormModalEmail.touched)
+              "
+            >
+              Invalid Input
+            </div>
+            <div
+              class="success"
+              *ngIf="
+                loginFormModalEmail.valid &&
+                (loginFormModalEmail.dirty || loginFormModalEmail.touched)
+              "
+            >
+              Valid Input
+            </div>
+          </div>
+
+          <div class="field-wrap">
+            <label> Password<span class="req">*</span> </label>
+            <input
+              type="password"
+              required
+              autocomplete="off"
+              [formControl]="loginFormModalPassword"
+            />
+            <div
+              class="error"
+              *ngIf="
+                loginFormModalPassword.invalid &&
+                (loginFormModalPassword.dirty || loginFormModalPassword.touched)
+              "
+            >
+              Invalid Input
+            </div>
+            <div
+              class="success"
+              *ngIf="
+                loginFormModalPassword.valid &&
+                (loginFormModalPassword.dirty || loginFormModalPassword.touched)
+              "
+            >
+              Valid Input
+            </div>
+          </div>
+          <button class="button button-block" (click)="login()">Log In</button>
+          <div class="error-message" *ngIf="login_error_msg.length > 0">
+            <span> {{ login_error_msg }} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- tab-content -->
+  </div>
+  <!-- /form -->
+</div>
+
+<div *ngIf="varify">
+  <ul *ngFor="let message of messages | async">
+    <li>
+      <strong>{{ message.message }}</strong>
+      <br />
+      {{ message.name }}
+    </li>
+  </ul>
+  <textarea
+    [(ngModel)]="message"
+    name="message"
+    placeholder="Enter message to talk.."
+  ></textarea>
+  <input type="submit" value="Post your message" (click)="newMessage()" />
+</div>
+
+<!-- <div *ngFor="let message of messages | async">
+  {{ message.$value }}
+</div> -->
+<!-- <input type="text" #message placeholder="Your message.." />
+
+<button (click)="newMessage(message.value)">Send message</button> -->
