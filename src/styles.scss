@@ -302,6 +302,8 @@ Messages
     list-style: none;
     li {
       width: 100%;
+      float: left;
+      margin-right: 20px;
     }
   }
   .message {
@@ -326,7 +328,7 @@ Messages
     }
   }
   .my {
-    float: right;
+    float: right !important;
     margin-right: 20px;
     .message-name {
       float: right;
