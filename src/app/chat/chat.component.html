@@ -1,118 +1,13 @@
 <h1 class="chat-room">Real Time Chat Room</h1>
 
-<div *ngIf="!varify">
-  <!-- <textarea
-    [(ngModel)]="name"
-    name="name"
-    placeholder="Enter your name.."
-  ></textarea>
-  <textarea
-    [(ngModel)]="email"
-    name="email"
-    placeholder="Enter your email.."
-  ></textarea>
-  <textarea
-    [(ngModel)]="password"
-    name="password"
-    placeholder="Enter your password.."
-  ></textarea> -->
-  <!-- <input
-    *ngIf="varify_name"
-    type="text"
-    [(ngModel)]="name"
-    name="name"
-    placeholder="Enter your name.."
-  /> -->
-  <!-- <input type="submit" value="Sign Up" (click)="signup()" />
-  <input type="submit" value="Login" (click)="login()" /> -->
-
-  <!-- <div class="modal fade left" id="frameModalTop">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header text-center">
-          <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body mx-3">
-          <div class="md-form mb-5">
-            <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
-            <input
-              type="email"
-              id="defaultForm-email"
-              [formControl]="loginFormModalEmail"
-              class="form-control"
-              placeholder="Enter your email.."
-            />
-            <label for="defaultForm-email">Your email</label>
-            <div
-              *ngIf="
-                loginFormModalEmail.invalid &&
-                (loginFormModalEmail.dirty || loginFormModalEmail.touched)
-              "
-            >
-              Input invalid
-            </div>
-            <div
-              *ngIf="
-                loginFormModalEmail.valid &&
-                (loginFormModalEmail.dirty || loginFormModalEmail.touched)
-              "
-            >
-              Input valid
-            </div>
-          </div>
-
-          <div class="md-form mb-4">
-            <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
-            <input
-              type="password"
-              id="defaultForm-pass"
-              [formControl]="loginFormModalPassword"
-              class="form-control"
-              placeholder="Enter your password.."
-            />
-            <label for="defaultForm-pass">Your password</label>
-            <mdb-error
-              *ngIf="
-                loginFormModalPassword.invalid &&
-                (loginFormModalPassword.dirty || loginFormModalPassword.touched)
-              "
-            >
-              Input invalid
-            </mdb-error>
-            <mdb-success
-              *ngIf="
-                loginFormModalPassword.valid &&
-                (loginFormModalPassword.dirty || loginFormModalPassword.touched)
-              "
-            >
-              Input valid
-            </mdb-success>
-          </div>
-        </div>
-        <div class="modal-footer d-flex justify-content-center">
-          <button mdbBtn color="default" class="waves-light" (click)="login()">
-            Login
-          </button>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
+<div class="singup-page" *ngIf="!varify">
   <div class="form">
     <ul class="tab-group">
       <li class="tab active" id="signup">
-        <a href="#" (click)="signup_modal('signup')">Sign Up</a>
+        <a href="#" (click)="signupModal('signup')">Sign Up</a>
       </li>
       <li class="tab " id="login">
-        <a href="#" (click)="signup_modal('login')">Log In</a>
+        <a href="#" (click)="signupModal('login')">Log In</a>
       </li>
     </ul>
 
@@ -271,20 +166,75 @@
   <!-- /form -->
 </div>
 
-<div *ngIf="varify">
-  <ul *ngFor="let message of messages | async">
+<div class="chat-room" *ngIf="varify">
+  <!-- <ul *ngFor="let message of messages | async">
     <li>
       <strong>{{ message.message }}</strong>
       <br />
       {{ message.name }}
     </li>
   </ul>
-  <textarea
-    [(ngModel)]="message"
-    name="message"
-    placeholder="Enter message to talk.."
-  ></textarea>
-  <input type="submit" value="Post your message" (click)="newMessage()" />
+
+  <div class="char-board">
+    Hi {{ myUser.name }}
+    <textarea
+      [(ngModel)]="message"
+      name="message"
+      placeholder="Enter message to talk.."
+    ></textarea>
+    <input type="submit" value="Post your message" (click)="newMessage()" />
+  </div> -->
+
+  <div class="chat">
+    <div class="chat-title">
+      <div class="avatar">
+        <img src="assets/chat.svg" alt="Chat Room" />
+      </div>
+      <div class="title">
+        <h1>Welcome!</h1>
+        <h2>{{ myUser.name }}</h2>
+      </div>
+    </div>
+    <div class="messages">
+      <div class="messages-content">
+        <!-- <ul >
+          <li>
+            <strong>{{ message.message }}</strong>
+            <br />
+            {{ message.name }}
+          </li>
+        </ul> -->
+
+        <ul class="messages-list">
+          <li
+            *ngFor="let message of messages | async"
+            [ngClass]="{ my: message.email == myUser.email }"
+          >
+            <div class="message-name">{{ message.name }}</div>
+            <div class="message">
+              {{ message.message }}
+            </div>
+            <!-- <strong>{{ message.message }}</strong>
+            <br />
+            {{ message.name }} -->
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="message-box">
+      <textarea
+        type="text"
+        class="message-input"
+        placeholder="Type message..."
+        [(ngModel)]="message"
+        name="message"
+      ></textarea>
+      <button type="submit" class="message-submit" (click)="newMessage()">
+        Send
+      </button>
+    </div>
+  </div>
+  <div class="bg"></div>
 </div>
 
 <!-- <div *ngFor="let message of messages | async">

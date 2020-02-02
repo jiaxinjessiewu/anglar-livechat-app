@@ -17,7 +17,6 @@ interface Users {
   name: string;
   email: string;
 }
-
 @Component({
   selector: "app-chat",
   templateUrl: "./chat.component.html",
@@ -30,8 +29,10 @@ export class ChatComponent implements OnInit {
   validatingForm: FormGroup;
   usersCollection: AngularFirestoreCollection<Users>;
 
+  myUser: any = {};
+  // user.name: string;
   name: string;
-  email: string;
+  // email: string;
   message: string;
   varify: boolean;
   signup_form: boolean;
@@ -45,6 +46,7 @@ export class ChatComponent implements OnInit {
     this.name = "";
     this.getChatData();
     this.varify = false;
+
     this.user = this.afAuth.authState;
     this.usersCollection = this.afs.collection("users");
     this.validatingForm = new FormGroup({
@@ -66,9 +68,9 @@ export class ChatComponent implements OnInit {
   }
   newMessage() {
     this.messagesCollection.add({
-      name: this.name,
+      name: this.myUser.name,
       message: this.message,
-      email: this.email
+      email: this.myUser.email
     });
   }
 
@@ -87,66 +89,49 @@ export class ChatComponent implements OnInit {
   get signupFormModalPassword() {
     return this.validatingForm.get("signupFormModalPassword");
   }
-  // newUser() {
-  //   if (this.name) {
-  //     this.varify_name = true;
-  //   }
-  //   this.messagesCollection.add({ name: this.name, message: "" });
-  // }
   signup() {
-    console.log(
-      "signup: ",
-      this.validatingForm.get("signupFormModalEmail").value,
-      this.validatingForm.get("signupFormModalPassword").value,
-      this.name
-    );
     this.afAuth.auth
       .createUserWithEmailAndPassword(
         this.validatingForm.get("signupFormModalEmail").value,
         this.validatingForm.get("signupFormModalPassword").value
       )
       .then(() => {
-        this.varify = true;
-        this.email = this.validatingForm.get("signupFormModalEmail").value;
+        var email = this.validatingForm.get("signupFormModalEmail").value;
+        this.myUser = {
+          name: this.name,
+          email: email
+        };
         this.usersCollection.add({
           name: this.name,
-          email: this.email
+          email: email
         });
+        this.varify = true;
       })
       .catch(error => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        this.signup_error_msg = errorMessage;
+        this.signup_error_msg = error.message;
       });
   }
   login() {
-    // console.log(this.email, this.password);
-    console.log(
-      this.validatingForm.get("loginFormModalEmail").value,
-      this.validatingForm.get("loginFormModalPassword").value
-    );
     this.afAuth.auth
       .signInWithEmailAndPassword(
         this.validatingForm.get("loginFormModalEmail").value,
         this.validatingForm.get("loginFormModalPassword").value
       )
       .then(() => {
-        console.log("success");
-        this.varify = true;
-        this.email = this.validatingForm.get("loginFormModalEmail").value;
-        console.log("login user: ", this.usersCollection.valueChanges());
-        this.usersCollection.valueChanges().forEach(user => {
-          console.log("user:", user);
-        });
+        var email = this.validatingForm.get("loginFormModalEmail").value;
+        return this.afs
+          .collection("users", ref => ref.where("email", "==", email))
+          .valueChanges()
+          .subscribe(user => {
+            this.myUser = user[0];
+            this.varify = true;
+          });
       })
       .catch(error => {
-        console.log("login err: ", error);
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        this.login_error_msg = errorMessage;
+        this.login_error_msg = error.message;
       });
   }
-  signup_modal(type) {
+  signupModal(type) {
     var active_signup = (<HTMLInputElement>document.getElementById("signup"))
       .classList;
     var active_login = (<HTMLInputElement>document.getElementById("login"))
