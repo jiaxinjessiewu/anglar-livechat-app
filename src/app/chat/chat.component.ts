@@ -12,6 +12,7 @@ interface Messages {
   name: string;
   message: string;
   email: string;
+  timeStamp: number;
 }
 interface Users {
   name: string;
@@ -30,9 +31,7 @@ export class ChatComponent implements OnInit {
   usersCollection: AngularFirestoreCollection<Users>;
 
   myUser: any = {};
-  // user.name: string;
   name: string;
-  // email: string;
   message: string;
   varify: boolean;
   signup_form: boolean;
@@ -62,16 +61,22 @@ export class ChatComponent implements OnInit {
   }
 
   getChatData() {
-    this.messagesCollection = this.afs.collection("chat_messages");
+    this.messagesCollection = this.afs.collection("chat_messages", ref =>
+      ref.orderBy("timeStamp")
+    );
     this.messages = this.messagesCollection.valueChanges();
-    console.log("this.message : ", this.messages);
   }
   newMessage() {
-    this.messagesCollection.add({
-      name: this.myUser.name,
-      message: this.message,
-      email: this.myUser.email
-    });
+    this.messagesCollection
+      .add({
+        name: this.myUser.name,
+        message: this.message,
+        email: this.myUser.email,
+        timeStamp: new Date().getTime()
+      })
+      .then(() => {
+        this.message = "";
+      });
   }
 
   get loginFormModalEmail() {
@@ -130,6 +135,11 @@ export class ChatComponent implements OnInit {
       .catch(error => {
         this.login_error_msg = error.message;
       });
+  }
+  signOut() {
+    this.afAuth.auth.signOut().then(() => {
+      window.location.reload();
+    });
   }
   signupModal(type) {
     var active_signup = (<HTMLInputElement>document.getElementById("signup"))

@@ -1,4 +1,6 @@
-<h1 class="chat-room">Real Time Chat Room</h1>
+<div class="chat-room-title">
+  <h1>Real Time Chat Room</h1>
+</div>
 
 <div class="singup-page" *ngIf="!varify">
   <div class="form">
@@ -161,30 +163,10 @@
         </div>
       </div>
     </div>
-    <!-- tab-content -->
   </div>
-  <!-- /form -->
 </div>
 
 <div class="chat-room" *ngIf="varify">
-  <!-- <ul *ngFor="let message of messages | async">
-    <li>
-      <strong>{{ message.message }}</strong>
-      <br />
-      {{ message.name }}
-    </li>
-  </ul>
-
-  <div class="char-board">
-    Hi {{ myUser.name }}
-    <textarea
-      [(ngModel)]="message"
-      name="message"
-      placeholder="Enter message to talk.."
-    ></textarea>
-    <input type="submit" value="Post your message" (click)="newMessage()" />
-  </div> -->
-
   <div class="chat">
     <div class="chat-title">
       <div class="avatar">
@@ -197,14 +179,6 @@
     </div>
     <div class="messages">
       <div class="messages-content">
-        <!-- <ul >
-          <li>
-            <strong>{{ message.message }}</strong>
-            <br />
-            {{ message.name }}
-          </li>
-        </ul> -->
-
         <ul class="messages-list">
           <li
             *ngFor="let message of messages | async"
@@ -214,9 +188,6 @@
             <div class="message">
               {{ message.message }}
             </div>
-            <!-- <strong>{{ message.message }}</strong>
-            <br />
-            {{ message.name }} -->
           </li>
         </ul>
       </div>
@@ -234,12 +205,9 @@
       </button>
     </div>
   </div>
-  <div class="bg"></div>
+  <div class="signout">
+    <button type="submit" class="message-submit" (click)="signOut()">
+      Sign Out
+    </button>
+  </div>
 </div>
-
-<!-- <div *ngFor="let message of messages | async">
-  {{ message.$value }}
-</div> -->
-<!-- <input type="text" #message placeholder="Your message.." />
-
-<button (click)="newMessage(message.value)">Send message</button> -->
