@@ -1,15 +1,14 @@
-// @import "compass/css3";
-
 $body-bg: #c1bdba;
 $form-bg: #13232f;
 $white: #ffffff;
 
-$main: #1ab188;
+$main: rgb(150, 79, 76);
 $main-light: lighten($main, 5%);
 $main-dark: darken($main, 5%);
 
-$gray-light: #a0b3b0;
+$pink-light: rgb(239, 206, 197);
 $gray: #ddd;
+$green: #1ab188;
 
 $thin: 300;
 $normal: 400;
@@ -62,8 +61,8 @@ a {
     display: block;
     text-decoration: none;
     padding: 15px;
-    background: rgba($gray-light, 0.25);
-    color: $gray-light;
+    background: rgba($pink-light, 0.25);
+    color: $pink-light;
     font-size: 20px;
     float: left;
     width: 50%;
@@ -134,7 +133,7 @@ textarea {
   padding: 5px 10px;
   background: none;
   background-image: none;
-  border: 1px solid $gray-light;
+  border: 1px solid $pink-light;
   color: $white;
   border-radius: 0;
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
@@ -145,7 +144,7 @@ textarea {
 }
 
 textarea {
-  border: 2px solid $gray-light;
+  border: 2px solid $pink-light;
   resize: vertical;
 }
 
@@ -188,6 +187,7 @@ textarea {
 .button-block {
   display: block;
   width: 100%;
+  cursor: pointer;
 }
 
 .forgot {
@@ -200,7 +200,7 @@ textarea {
   margin: 10px;
 }
 .field-wrap .success {
-  color: $main;
+  color: $green;
   font-size: 16px;
   margin: 10px;
 }
@@ -225,10 +225,11 @@ textarea {
   justify-content: space-between;
   flex-direction: column;
 }
+
 .chat-room {
   margin-top: 40px;
   .signout button {
-    background: #1ab188;
+    background: $main;
     color: #ffffff;
     display: block;
     border-radius: 20px;
@@ -244,10 +245,6 @@ textarea {
     transition: 0.5s ease;
   }
 }
-
-/*--------------------
-Chat Title
---------------------*/
 .chat-title {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -297,10 +294,6 @@ Chat Title
     margin: 10px;
   }
 }
-
-/*--------------------
-Messages
---------------------*/
 .messages {
   flex: 1 1 auto;
   color: rgba(255, 255, 255, 0.5);
@@ -356,7 +349,7 @@ Messages
       float: right;
       color: #fff;
       text-align: right;
-      background: linear-gradient(120deg, #248a52, #257287);
+      background: linear-gradient(120deg, rgb(198, 145, 142), $main);
       border-radius: 10px 0 10px 10px;
 
       &::before {
@@ -364,17 +357,13 @@ Messages
         right: 0;
         border-right: none;
         border-left: 5px solid transparent;
-        border-bottom: 4px solid #257287;
+        border-bottom: 4px solid $main;
         border-top: none;
         bottom: 28px;
       }
     }
   }
 }
-
-/*--------------------
-Message Box
---------------------*/
 .message-box {
   width: 100%;
   background: rgba(0, 0, 0, 0.3);
@@ -413,7 +402,7 @@ Message Box
     cursor: pointer;
 
     &:hover {
-      background: #1d7745;
+      background: $green;
     }
   }
 }
