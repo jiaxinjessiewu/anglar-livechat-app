@@ -1,5 +1,15 @@
 # AnglarLivechatApp [Demo](https://jessie-angular-livechat.firebaseapp.com/)
 
+A chat room application with authentication, using Angular 2, Bootstrap 4 and a Firebase backend. The app is managing state between multiple clients in realtime with Cloud Firestore.
+
+## This was built using:
+
+- Angular 2
+- AngularFire 2
+- Angular Material
+- Firebase
+- Bootstrap 4
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23.
 
 ## Development server
