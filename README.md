@@ -10,6 +10,8 @@ A chat room application with authentication, using Angular 2, Bootstrap 4 and a 
 - Firebase
 - Bootstrap 4
 
+Icons used from [Flaticon](https://www.flaticon.com)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23.
 
 ## Development server
